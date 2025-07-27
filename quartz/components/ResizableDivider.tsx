@@ -94,7 +94,7 @@ function initResizableDivider() {
 
     // 更新网格模板列
     const rightSidebarWidth = 320; // 右侧栏固定宽度
-    quartzBody.style.gridTemplateColumns = \`\${width}px auto \${rightSidebarWidth}px\`;
+    quartzBody.style.gridTemplateColumns = \`\${width}px 1fr \${rightSidebarWidth}px\`;
 
     // 保存到localStorage
     localStorage.setItem('leftSidebarWidth', width.toString());

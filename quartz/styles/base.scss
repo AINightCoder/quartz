@@ -158,7 +158,7 @@ a {
 
   & > #quartz-body {
     display: grid;
-    grid-template-columns: var(--left-sidebar-width) auto #{$sidePanelWidth};
+    grid-template-columns: var(--left-sidebar-width) 1fr #{$sidePanelWidth};
     grid-template-rows: #{map-get($desktopGrid, templateRows)};
     column-gap: #{map-get($desktopGrid, columnGap)};
     row-gap: #{map-get($desktopGrid, rowGap)};
@@ -206,8 +206,7 @@ a {
 
     & .center,
     & footer {
-      max-width: 100%;
-    //   min-width: 100%;
+      width: 100%;
       margin-left: auto;
       margin-right: auto;
     }
@@ -215,6 +214,20 @@ a {
     & .center {
       padding-left: 1rem;
       padding-right: 1rem;
+
+      // 限制内容宽度以保证阅读体验，但让栏本身占用全部空间
+      & > article,
+      & > .page-header {
+        max-width: #{$centerPanelMaxWidth};
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+    & footer {
+      margin-left: 0;
+      max-width: #{$centerPanelMaxWidth};
+      margin-left: auto;
+      margin-right: auto;
     }
     & footer {
       margin-left: 0;
