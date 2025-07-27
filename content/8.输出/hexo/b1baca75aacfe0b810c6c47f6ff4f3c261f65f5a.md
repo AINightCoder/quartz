@@ -1,7 +1,7 @@
 ---
 title: "test_note2"
 date: "2025-02-11T12:16:36.976Z"
-updated: "2025-02-11T12:16:36.976Z"
+updated: "2025-07-27T12:35:37.243Z"
 categories:
   - "输出"
   - "hexo"
