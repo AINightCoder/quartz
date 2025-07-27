@@ -1,0 +1,68 @@
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 50%; // 圆形设计
+  background: var(--secondary);
+  color: var(--light);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease; // 只保留透明度过渡
+  z-index: 1000;
+
+  // 默认隐藏
+  opacity: 0;
+  visibility: hidden;
+
+  // 显示状态
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  // 悬停效果 - 简化为只改变背景色
+  &:hover {
+    background: var(--tertiary);
+  }
+
+  // 活动状态 - 简化
+  &:active {
+    background: var(--darkgray);
+  }
+
+  // 移动端适配
+  @media (max-width: 768px) {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 2.25rem;
+    height: 2.25rem;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  // 小屏幕适配
+  @media (max-width: 480px) {
+    bottom: 1rem;
+    right: 1rem;
+    width: 2rem;
+    height: 2rem;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  // 无障碍访问 - 去除焦点描边
+  &:focus {
+    outline: none;
+  }
+}

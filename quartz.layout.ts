@@ -31,12 +31,12 @@ export const sharedPageComponents: SharedLayout = {
         inputPosition: "top",
       },
     }),
+    Component.ScrollToTop(),
   ],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/jackyzha0/quartz",
-      "Discord Community": "https://discord.gg/cRFFHYye7t",
-      "Scroll to top ↑": "#",
+      // 移除了官方广告链接和回到顶部链接（现在使用专门的ScrollToTop组件）
+      // 可以在这里添加自定义链接
     },
   }),
 }
