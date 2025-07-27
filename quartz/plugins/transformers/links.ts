@@ -119,7 +119,12 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
                   // need to decodeURIComponent here as WHATWG URL percent-encodes everything
                   const full = decodeURIComponent(stripSlashes(destCanonical, true)) as FullSlug
                   const simple = simplifySlug(full)
-                  outgoing.add(simple)
+
+                  // 跳过 tag 链接，只收集文章内容中的实际链接关系
+                  if (!destCanonical.startsWith("/tags/")) {
+                    outgoing.add(simple)
+                  }
+
                   node.properties["data-slug"] = full
                 }
 
