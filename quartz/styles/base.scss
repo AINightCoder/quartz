@@ -214,6 +214,7 @@ a {
     & .center {
       padding-left: 1rem;
       padding-right: 1rem;
+      min-width: #{$centerPanelMinWidth}; // 设置最小宽度，保证布局稳定
 
       // 限制内容宽度以保证阅读体验，但让栏本身占用全部空间
       & > article,
