@@ -66,16 +66,8 @@ PersonalIntro.css = `
   color: var(--darkgray);
   line-height: 1.4;
   margin: 0.25rem 0;
-  padding-left: 0.8rem;
+  padding-left: 0;
   position: relative;
-}
-
-.intro-list li::before {
-  content: "·";
-  color: var(--secondary);
-  font-weight: bold;
-  position: absolute;
-  left: 0;
 }
 
 /* 暗色主题优化 */

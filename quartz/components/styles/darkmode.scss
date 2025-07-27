@@ -1,19 +1,23 @@
 .darkmode {
   cursor: pointer;
   padding: 0;
-  position: relative;
+  position: fixed;
+  top: 20px;
+  left: 20px;
   background: none;
   border: none;
   width: 20px;
   height: 20px;
-  margin: 0 10px;
+  margin: 0;
   text-align: inherit;
+  z-index: 1000;
 
   & svg {
     position: absolute;
     width: 20px;
     height: 20px;
     top: calc(50% - 10px);
+    left: calc(50% - 10px);
     fill: var(--darkgray);
     transition: opacity 0.1s ease;
   }
