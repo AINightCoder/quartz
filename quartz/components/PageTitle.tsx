@@ -30,7 +30,7 @@ PageTitle.css = `
   align-items: center;
   gap: 0.5rem;
   margin: 0;
-  padding: 0.5rem 0;
+  padding: 0rem 0;
 }
 
 .page-title-avatar {

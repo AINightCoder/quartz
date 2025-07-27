@@ -4,12 +4,8 @@ import { classNames } from "../util/lang"
 const PersonalIntro: QuartzComponent = ({ displayClass }: QuartzComponentProps) => {
   return (
     <div class={classNames(displayClass, "personal-intro")}>
-      <div class="intro-header">
-        <span class="intro-emoji">👋</span>
-        <h3 class="intro-title">关于我</h3>
-      </div>
       <div class="intro-content">
-        <p class="intro-main">全栈工程师 · AI应用开发者 · 超级个体创业者</p>
+        <p class="intro-main">全栈工程师 · AI应用开发 · 超级个体创业</p>
         <ul class="intro-list">
           <li>白天写代码，晚上搞副业</li>
           <li>用AI做有趣又能赚钱的应用</li>
