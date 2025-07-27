@@ -16,7 +16,7 @@ interface AvatarOptions {
 export default ((userOpts?: AvatarOptions) => {
   const opts: Required<AvatarOptions> = {
     imageName: "head.png",
-    size: 48,
+    size: 32,
     showBorder: true,
     linkTo: "/",
     ...userOpts,
@@ -53,14 +53,16 @@ export default ((userOpts?: AvatarOptions) => {
   .avatar-container {
     display: flex;
     justify-content: center;
-    margin: 1rem 0;
+    margin: 0.75rem 0;
   }
 
   .avatar-image {
     border-radius: 50%;
     object-fit: cover;
-    ${opts.showBorder ? `border: 2px solid var(--lightgray);` : ""}
-    transition: all 0.2s ease;
+    ${opts.showBorder ? `border: 1.5px solid var(--lightgray);` : ""}
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--light);
   }
 
   .avatar-link {
@@ -70,7 +72,27 @@ export default ((userOpts?: AvatarOptions) => {
 
   .avatar-link:hover .avatar-image {
     ${opts.showBorder ? `border-color: var(--secondary);` : ""}
-    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px) scale(1.05);
+  }
+
+  /* 暗色主题优化 */
+  :root[saved-theme="dark"] .avatar-image {
+    ${opts.showBorder ? `border-color: var(--gray);` : ""}
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    background: var(--darkgray);
+  }
+
+  :root[saved-theme="dark"] .avatar-link:hover .avatar-image {
+    ${opts.showBorder ? `border-color: var(--secondary);` : ""}
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  /* 响应式优化 */
+  @media (max-width: 600px) {
+    .avatar-container {
+      margin: 0.5rem 0;
+    }
   }
   `
 
