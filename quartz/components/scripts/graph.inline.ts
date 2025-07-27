@@ -191,15 +191,15 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
     {} as Record<(typeof cssVars)[number], string>,
   )
 
-  // calculate color
+  // calculate color - 简洁的配色方案，一比一复刻 Obsidian
   const color = (d: NodeData) => {
     const isCurrent = d.id === slug
     if (isCurrent) {
-      return computedStyleMap["--secondary"]
-    } else if (visited.has(d.id) || d.id.startsWith("tags/")) {
-      return computedStyleMap["--tertiary"]
+      // 当前节点使用鲜明的蓝色
+      return "#4A90E2"
     } else {
-      return computedStyleMap["--gray"]
+      // 其他节点统一使用灰色，不区分访问状态
+      return "#A0A0A0"
     }
   }
 
@@ -208,9 +208,9 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
     const numLinks = graphData.links.filter(
       (l) => l.source.id === d.id || l.target.id === d.id,
     ).length
-    const baseRadius = 2 + Math.sqrt(numLinks)
-    // 当前节点增大 50%
-    return isCurrent ? baseRadius * 1.5 : baseRadius
+    const baseRadius = 4 + Math.sqrt(numLinks)
+    // 当前节点只稍微大一点
+    return isCurrent ? baseRadius * 1.2 : baseRadius
   }
 
   let hoveredNodeId: string | null = null
@@ -263,7 +263,7 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
         alpha = l.active ? 1 : 0.2
       }
 
-      l.color = l.active ? computedStyleMap["--gray"] : computedStyleMap["--lightgray"]
+      l.color = l.active ? "#B0B0B0" : "#D8D8D8"
       tweenGroup.add(new Tweened<LinkRenderData>(l).to({ alpha }, 200))
     }
 
@@ -381,10 +381,10 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
       eventMode: "none",
       text: n.text,
       alpha: isCurrent ? 1 : 0, // 当前节点的标签始终显示
-      anchor: { x: 0.5, y: 1.2 },
+      anchor: { x: 0.5, y: -0.7 },
       style: {
         fontSize: fontSize * 15,
-        fill: isCurrent ? computedStyleMap["--secondary"] : computedStyleMap["--dark"],
+        fill: isCurrent ? "#4A90E2" : "#888888", // 使用更协调的颜色
         fontFamily: computedStyleMap["--bodyFont"],
         fontWeight: isCurrent ? "bold" : "normal", // 当前节点标签加粗
       },
@@ -403,10 +403,8 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
     })
       .circle(0, 0, nodeRadius(n))
       .fill({ color: isTagNode ? computedStyleMap["--light"] : color(n) })
-      .stroke({
-        width: isCurrent ? 3 : (isTagNode ? 2 : 0),
-        color: isCurrent ? computedStyleMap["--secondary"] : color(n)
-      })
+      // 去掉边框，保持简洁
+      .stroke({ width: 0 })
       .on("pointerover", (e) => {
         updateHoverInfo(e.target.label)
         oldLabelOpacity = label.alpha
@@ -532,7 +530,9 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
       if (!x || !y) continue
       n.gfx.position.set(x + width / 2, y + height / 2)
       if (n.label) {
-        n.label.position.set(x + width / 2, y + height / 2)
+        // 文字位置在节点右侧，距离节点半径 + 8px
+        const nodeRadius = n.gfx.width / 2
+        n.label.position.set(x + width / 2 + nodeRadius + 8, y + height / 2)
       }
     }
 

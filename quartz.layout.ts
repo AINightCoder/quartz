@@ -60,9 +60,11 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Graph({
       localGraph: {
         showTags: false, // 关闭局部图谱中的标签显示
+        linkDistance: 50, // 增加连接线长度
       },
       globalGraph: {
         showTags: false, // 关闭全局图谱中的标签显示
+        linkDistance: 50, // 增加连接线长度
       },
     }),
     Component.DesktopOnly(Component.TableOfContents()),
