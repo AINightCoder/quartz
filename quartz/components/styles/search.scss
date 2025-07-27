@@ -4,7 +4,10 @@
   min-width: fit-content;
   max-width: 360px;
   @media all and ($mobile) {
-    flex-grow: 0.3;
+    flex-grow: 0;
+    flex-shrink: 0;
+    max-width: 100%;
+    width: 100%;
   }
 
   & > .search-button {
@@ -22,6 +25,13 @@
     white-space: nowrap;
     width: 100%;
     justify-content: space-between;
+
+    // 移动端搜索按钮优化
+    @media all and ($mobile) {
+      height: 2.5rem;
+      min-height: 2.5rem;
+      max-height: 2.5rem;
+    }
 
     & > p {
       display: inline;
