@@ -10,7 +10,6 @@ tags:
   - "hexo"
   - "obsidian"
   - "markdown"
-  - "share"
 ---
 
 # 双链测试笔记 2
