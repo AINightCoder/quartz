@@ -109,17 +109,18 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
       }
     }
 
-    if (showTags) {
-      const localTags = details.tags
-        .filter((tag) => !removeTags.includes(tag))
-        .map((tag) => simplifySlug(("tags/" + tag) as FullSlug))
+    // 注释掉标签关系的创建，只保留文章间的实际链接关系
+    // if (showTags) {
+    //   const localTags = details.tags
+    //     .filter((tag) => !removeTags.includes(tag))
+    //     .map((tag) => simplifySlug(("tags/" + tag) as FullSlug))
 
-      tags.push(...localTags.filter((tag) => !tags.includes(tag)))
+    //   tags.push(...localTags.filter((tag) => !tags.includes(tag)))
 
-      for (const tag of localTags) {
-        links.push({ source: source, target: tag })
-      }
-    }
+    //   for (const tag of localTags) {
+    //     links.push({ source: source, target: tag })
+    //   }
+    // }
   }
 
   const neighbourhood = new Set<SimpleSlug>()
@@ -203,10 +204,13 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
   }
 
   function nodeRadius(d: NodeData) {
+    const isCurrent = d.id === slug
     const numLinks = graphData.links.filter(
       (l) => l.source.id === d.id || l.target.id === d.id,
     ).length
-    return 2 + Math.sqrt(numLinks)
+    const baseRadius = 2 + Math.sqrt(numLinks)
+    // 当前节点增大 50%
+    return isCurrent ? baseRadius * 1.5 : baseRadius
   }
 
   let hoveredNodeId: string | null = null
@@ -371,16 +375,18 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
   for (const n of graphData.nodes) {
     const nodeId = n.id
 
+    const isCurrent = nodeId === slug
     const label = new Text({
       interactive: false,
       eventMode: "none",
       text: n.text,
-      alpha: 0,
+      alpha: isCurrent ? 1 : 0, // 当前节点的标签始终显示
       anchor: { x: 0.5, y: 1.2 },
       style: {
         fontSize: fontSize * 15,
-        fill: computedStyleMap["--dark"],
+        fill: isCurrent ? computedStyleMap["--secondary"] : computedStyleMap["--dark"],
         fontFamily: computedStyleMap["--bodyFont"],
+        fontWeight: isCurrent ? "bold" : "normal", // 当前节点标签加粗
       },
       resolution: window.devicePixelRatio * 4,
     })
@@ -397,7 +403,10 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
     })
       .circle(0, 0, nodeRadius(n))
       .fill({ color: isTagNode ? computedStyleMap["--light"] : color(n) })
-      .stroke({ width: isTagNode ? 2 : 0, color: color(n) })
+      .stroke({
+        width: isCurrent ? 3 : (isTagNode ? 2 : 0),
+        color: isCurrent ? computedStyleMap["--secondary"] : color(n)
+      })
       .on("pointerover", (e) => {
         updateHoverInfo(e.target.label)
         oldLabelOpacity = label.alpha

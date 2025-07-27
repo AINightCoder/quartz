@@ -57,7 +57,14 @@ export const defaultContentPageLayout: PageLayout = {
     Component.DesktopOnly(Component.Explorer()),
   ],
   right: [
-    Component.Graph(),
+    Component.Graph({
+      localGraph: {
+        showTags: false, // 关闭局部图谱中的标签显示
+      },
+      globalGraph: {
+        showTags: false, // 关闭全局图谱中的标签显示
+      },
+    }),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
   ],
