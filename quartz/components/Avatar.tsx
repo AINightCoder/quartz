@@ -3,7 +3,7 @@ import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } fro
 import { classNames } from "../util/lang"
 
 interface AvatarOptions {
-  /** 头像图片文件名，默认为 "avatar.png" */
+  /** 头像图片文件名，默认为 "head.png" */
   imageName?: string
   /** 头像大小，默认为 48px */
   size?: number
@@ -15,7 +15,7 @@ interface AvatarOptions {
 
 export default ((userOpts?: AvatarOptions) => {
   const opts: Required<AvatarOptions> = {
-    imageName: "avatar.png",
+    imageName: "head.png",
     size: 48,
     showBorder: true,
     linkTo: "/",
