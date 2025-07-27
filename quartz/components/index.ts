@@ -22,6 +22,7 @@ import Breadcrumbs from "./Breadcrumbs"
 import Comments from "./Comments"
 import Avatar from "./Avatar"
 import ScrollToTop from "./ScrollToTop"
+import PersonalIntro from "./PersonalIntro"
 
 export {
   ArticleTitle,
@@ -48,4 +49,5 @@ export {
   Comments,
   Avatar,
   ScrollToTop,
+  PersonalIntro,
 }
