@@ -169,6 +169,15 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
     .force("link", forceLink(graphData.links).distance(linkDistance))
     .force("collide", forceCollide<NodeData>((n) => nodeRadius(n)).iterations(3))
 
+  // 如果只有一个节点，直接设置其位置到中心
+  if (graphData.nodes.length === 1) {
+    const node = graphData.nodes[0]
+    node.x = 0
+    node.y = 0
+    node.fx = 0  // 固定位置
+    node.fy = 0
+  }
+
   const width = graph.offsetWidth
   const height = Math.max(graph.offsetHeight, 250)
 
@@ -527,7 +536,8 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
   function animate(time: number) {
     for (const n of nodeRenderData) {
       const { x, y } = n.simulationData
-      if (!x || !y) continue
+      // 修复：正确检查坐标是否为 null/undefined，而不是 falsy 值
+      if (x == null || y == null) continue
       n.gfx.position.set(x + width / 2, y + height / 2)
       if (n.label) {
         // 文字位置在节点右侧，距离节点半径 + 8px
