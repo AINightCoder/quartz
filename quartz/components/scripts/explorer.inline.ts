@@ -33,20 +33,28 @@ function toggleFolder(evt: MouseEvent) {
   if (!target) return
 
   const isSvg = target.nodeName === "svg"
-  const childFolderContainer = (
-    isSvg
-      ? target.parentElement?.nextSibling
-      : target.parentElement?.parentElement?.nextElementSibling
-  ) as MaybeHTMLElement
-  const currentFolderParent = (
-    isSvg ? target.nextElementSibling : target.parentElement
-  ) as MaybeHTMLElement
-  if (!(childFolderContainer && currentFolderParent)) return
+  let folderContainer: MaybeHTMLElement
+  let folderDataElement: MaybeHTMLElement
+
+  if (isSvg) {
+    // 点击的是SVG箭头
+    folderContainer = target.parentElement as MaybeHTMLElement
+    folderDataElement = folderContainer?.querySelector('[data-folderpath]') as MaybeHTMLElement
+  } else {
+    // 点击的是按钮
+    folderContainer = target.closest('.folder-container') as MaybeHTMLElement
+    folderDataElement = target.parentElement as MaybeHTMLElement
+  }
+
+  if (!folderContainer || !folderDataElement) return
+
+  const childFolderContainer = folderContainer.parentElement?.querySelector('.folder-outer') as MaybeHTMLElement
+  if (!childFolderContainer) return
 
   childFolderContainer.classList.toggle("open")
   const isCollapsed = childFolderContainer.classList.contains("open")
   setFolderState(childFolderContainer, !isCollapsed)
-  const fullFolderPath = currentFolderParent.dataset.folderpath as string
+  const fullFolderPath = folderDataElement.dataset.folderpath as string
   toggleCollapsedByPath(currentExplorerState, fullFolderPath)
   const stringifiedFileTree = JSON.stringify(currentExplorerState)
   localStorage.setItem("fileTree", stringifiedFileTree)
