@@ -36,6 +36,7 @@ PageTitle.css = `
 .page-title-avatar {
   width: 32px;
   height: 32px;
+  margin: 0;
   border-radius: 50%;
   object-fit: cover;
   border: 1.5px solid var(--lightgray);
