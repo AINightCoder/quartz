@@ -95,6 +95,10 @@ button#explorer {
       color: var(--dark);
       opacity: 0.75;
       pointer-events: all;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: block;
     }
   }
   > #explorer-ul {
@@ -124,6 +128,10 @@ svg {
     font-weight: $semiBoldWeight;
     line-height: 1.5rem;
     display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
   }
 
   & div > a:hover {
@@ -150,6 +158,10 @@ svg {
       margin: 0;
       line-height: 1.5rem;
       pointer-events: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 100%;
     }
   }
 }
