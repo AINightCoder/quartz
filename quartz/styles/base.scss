@@ -9,6 +9,10 @@ html {
   width: 100vw;
 }
 
+:root {
+  --left-sidebar-width: #{$sidePanelWidth};
+}
+
 body,
 section {
   margin: 0;
@@ -151,13 +155,13 @@ a {
 
   & > #quartz-body {
     display: grid;
-    grid-template-columns: #{map-get($desktopGrid, templateColumns)};
+    grid-template-columns: var(--left-sidebar-width) auto #{$sidePanelWidth};
     grid-template-rows: #{map-get($desktopGrid, templateRows)};
     column-gap: #{map-get($desktopGrid, columnGap)};
     row-gap: #{map-get($desktopGrid, rowGap)};
     grid-template-areas: #{map-get($desktopGrid, templateAreas)};
     @media all and ($tablet) {
-      grid-template-columns: #{map-get($tabletGrid, templateColumns)};
+      grid-template-columns: var(--left-sidebar-width) auto;
       grid-template-rows: #{map-get($tabletGrid, templateRows)};
       column-gap: #{map-get($tabletGrid, columnGap)};
       row-gap: #{map-get($tabletGrid, rowGap)};
@@ -182,7 +186,7 @@ a {
       gap: 1.2rem;
       top: 0;
       box-sizing: border-box;
-      padding: $topSpacing 2rem 2rem 2rem;
+      padding: $topSpacing 1rem 2rem 1rem;
       display: flex;
       height: 100vh;
       position: sticky;
@@ -207,6 +211,7 @@ a {
     & .sidebar.right {
       grid-area: grid-sidebar-right;
       margin-right: 0;
+      margin-left: 2rem;
       flex-direction: column;
       @media all and ($mobile) {
         margin-left: inherit;
@@ -218,6 +223,7 @@ a {
         width: 100%;
         flex-direction: row;
         padding: 0;
+        margin-left: 0;
         & > * {
           flex: 1;
         }
@@ -260,6 +266,15 @@ a {
       @media all and ($mobile) {
         margin-right: 0;
         margin-left: 0;
+      }
+    }
+
+    & .center {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      @media all and ($mobile) {
+        padding-left: 0;
+        padding-right: 0;
       }
     }
     & footer {
