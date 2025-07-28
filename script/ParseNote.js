@@ -245,21 +245,25 @@ async function processContent(content, page, config, notesMap, backlinksMap) {
     content = content.replace(/\[\[(.*?)\]\]|\[([^\]]+)\]\(\s*(<.*?>|.*?)\s*\)/g, (match, p1, p2, p3) => {
         // 如果是 [[...]] 格式，p1 有值；如果是 [text](link) 格式，p2 和 p3 有值
         let linkText, resourcePath;
-        if (p1) {
+        if (p1 !== undefined && p1 !== null) {
             // [[...]] 格式
-            let linkInner = p1.trim();
+            let linkInner = (p1 || '').trim();
             // 处理别名 [[link|alias]]
             let [linkTarget, linkAlias] = linkInner.split('|');
-            resourcePath = linkTarget.trim();
-            linkText = linkAlias ? linkAlias.trim() : linkTarget.trim();
-        } else {
+            resourcePath = (linkTarget || '').trim();
+            linkText = linkAlias ? (linkAlias || '').trim() : (linkTarget || '').trim();
+        } else if (p2 !== undefined && p3 !== undefined) {
             // [text](link) 格式
-            linkText = p2.trim();
-            resourcePath = p3.trim();
+            linkText = (p2 || '').trim();
+            resourcePath = (p3 || '').trim();
             // 移除尖括号（如果有）
             if (resourcePath.startsWith('<') && resourcePath.endsWith('>')) {
                 resourcePath = resourcePath.slice(1, -1).trim();
             }
+        } else {
+            // 如果所有捕获组都是 undefined，返回原始匹配
+            console.warn(`无法解析链接格式：${match}`);
+            return match;
         }
 
         // 如果是 HTTP 链接或锚点链接，直接返回原始内容
