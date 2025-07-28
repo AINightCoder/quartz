@@ -1,4 +1,5 @@
 name: Deploy Quartz site to GitHub Pages
+# 标准的GitHub Pages部署工作流
 
 on:
   push:
