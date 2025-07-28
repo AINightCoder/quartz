@@ -354,11 +354,11 @@ async function processContent(content, page, config, notesMap, backlinksMap) {
     // 3. 将以 '??' 开头的行及其后面的字符替换为空格
     content = content.replace(/\?\?.*/g, '  ');
 
-    // 4. 在二级及以上标题前插入两个空格
-    content = content.replace(/(\n)(#{2,})/g, '$1  $2');
+    // 4. 确保二级及以上标题格式正确（移除多余空格）
+    content = content.replace(/(\n)(#{2,})/g, '$1$2');
 
     // 5. 确保在二级及以上标题前有一个换行符
-    content = content.replace(/([^\n])(\n#{2,})/g, '$1\n  $2');
+    content = content.replace(/([^\n])(\n#{2,})/g, '$1\n$2');
 
     // 6. 确保标题后有一个空行
     content = content.replace(/(#{2,}.*\n)(?!\n)/g, '$1\n');
