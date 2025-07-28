@@ -8,7 +8,7 @@ tags:
 
 翻译下面英文为中文
 
-This is a blank Quartz installation. See the [文档](https://bill.is-a.dev/quartz-doc-cn/) for how to get started.
+This is a blank Quartz installation. See the [文档](https://bill.is-a.dev/quartz-doc-cn/) for how to get started. test pages
 
 To install Quartz, you can follow these steps:
 
