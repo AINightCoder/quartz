@@ -14,6 +14,14 @@ const defaultOptions = {
   folderDefaultState: "collapsed",
   useSavedState: true,
   mapFn: (node) => {
+    // 只处理顶级目录，去掉数字前缀
+    if (node.depth === 1 && !node.file) {
+      // 匹配如 "3.商业" 的模式，提取 "商业"
+      const match = node.displayName.match(/^\d+\.(.+)$/)
+      if (match) {
+        node.displayName = match[1]
+      }
+    }
     return node
   },
   sortFn: (a, b) => {
