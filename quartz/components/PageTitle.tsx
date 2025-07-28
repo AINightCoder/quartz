@@ -10,16 +10,16 @@ const PageTitle: QuartzComponent = ({ fileData, cfg, displayClass }: QuartzCompo
 
   return (
     <div class={classNames(displayClass, "page-title")}>
-      <img
-        src={avatarPath}
-        alt="头像"
-        class="page-title-avatar"
-        onError="this.style.display='none'"
-        loading="lazy"
-      />
-      <h2 class="page-title-text">
-        <a href={baseDir}>{title}</a>
-      </h2>
+      <a href={baseDir} class="page-title-link">
+        <img
+          src={avatarPath}
+          alt="头像"
+          class="page-title-avatar"
+          onError={(e) => (e.currentTarget.style.display = 'none')}
+          loading="lazy"
+        />
+        <h2 class="page-title-text">{title}</h2>
+      </a>
     </div>
   )
 }
@@ -31,6 +31,20 @@ PageTitle.css = `
   gap: 0.5rem;
   margin: 0;
   padding: 0rem 0;
+}
+
+.page-title-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--dark);
+  transition: color 0.2s ease;
+  flex: 1;
+}
+
+.page-title-link:hover {
+  color: var(--secondary);
 }
 
 .page-title-avatar {
@@ -46,7 +60,7 @@ PageTitle.css = `
   background: var(--light);
 }
 
-.page-title-avatar:hover {
+.page-title-link:hover .page-title-avatar {
   border-color: var(--secondary);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transform: translateY(-1px) scale(1.05);
@@ -58,17 +72,6 @@ PageTitle.css = `
   line-height: 1.2;
   min-width: 0;
   flex: 1;
-}
-
-.page-title-text a {
-  text-decoration: none;
-  color: var(--dark);
-  transition: color 0.2s ease;
-  display: block;
-}
-
-.page-title-text a:hover {
-  color: var(--secondary);
 }
 
 /* 暗色主题优化 */
